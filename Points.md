@@ -1,0 +1,1 @@
+* Error driven development: Writing code to get rid of errors. Keep doing that until all errors go away.

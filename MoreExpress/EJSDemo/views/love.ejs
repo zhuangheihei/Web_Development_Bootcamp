@@ -1,0 +1,17 @@
+<!--下面那个特殊的括号组合会被当成JavaScript对待，里面得到的结果
+会被printed out, 有=的话会被显示出来，没有=的话就是不显示的，仅仅执行-->
+
+<h1>You fell in love with: <%= thingVar.toUpperCase()%></h1>
+
+<%  if(thingVar.toLowerCase() === "rusty"){ %>
+    <p>GOOD CHOICE! RUSTY IS THE BEST!</p>
+    <% } else { %>
+    <p>Bad choice, you should have said rusty!</p>
+<% } %>
+
+<p>P.S. This is a love.ejs file!</p>
+
+
+
+<!--Render anything inside it to an HTML file-->
+<!--Just run the code and doesn't show anything -->

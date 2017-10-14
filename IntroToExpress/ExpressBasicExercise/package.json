@@ -1,0 +1,14 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "package",
+  "main": "app.js",
+  "scripts": {
+    "test": "adf"
+  },
+  "keywords": [
+    "app"
+  ],
+  "author": "me",
+  "license": "ISC"
+}
