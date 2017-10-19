@@ -3,32 +3,15 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
     seedDB = require("./seeds"),
-    Campground = require("./models/campground"),
-    Comment = require("./models/comment"),
-    User = require("./models/user");
+    Campground = require("./models/campground");
+    //Comment = require("./models/comment");
+    //User = require("./models/user");
     
 //背住或者复制粘贴就可以
-seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
-
-
-// Campground.create(
-//     {
-//         name:"Loodles",
-//         image: "http://fj.sinaimg.cn/2013/1111/U7867P911DT20131111163207.jpg",
-//         discription: "Delicious noodles with special sauce and side dishes."
-//     },function(err, campground){
-//         if(err){
-//             console.log(err);
-//         }   else {
-//             console.log("Newly Added Street Food: ");
-//             console.log(campground);
-//         }
-//     }
-// );
-
+seedDB();
 
 app.get("/", function(req,res){
     res.render("landing"); 
@@ -71,10 +54,11 @@ app.get("/campgrounds/new", function(req, res){
     res.render("new.ejs"); 
 });
 
+
 //SHOW - shows more info about campground
 app.get("/campgrounds/:id", function(req, res) {
     //find campground with provided ID
-    Campground.findById(req.params.id, function(err, foundCampground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if(err){
             console.log(err);
         } else{

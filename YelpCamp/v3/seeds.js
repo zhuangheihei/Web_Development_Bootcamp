@@ -46,6 +46,8 @@ function seedDB(){
                             if(err){
                                 console.log(err);
                             } else {
+                                //Associate with campground, push them into the array.
+                                //And then save the campground.
                                 campground.comments.push(comment);
                                 campground.save();
                                 console.log("Created new comment");
