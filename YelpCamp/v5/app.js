@@ -8,12 +8,12 @@ var express = require("express"),
     //User = require("./models/user");
     
 //背住或者复制粘贴就可以
-mongoose.connect("mongodb://localhost/yelp_camp_v4", {useMongoClient: true});
+mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true});
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + "/public")); //__dirname保证一定是在app.js当前的这个文件夹中
 app.set("view engine", "ejs");
 seedDB();
 
-//LANDING page
 app.get("/", function(req,res){
     res.render("landing"); 
 });
@@ -25,7 +25,7 @@ app.get("/campgrounds", function(req,res){
         if(err){
             console.log(err);
         }else{
-            res.render("campgrounds/index", {campgrounds: allCampgrounds});
+            res.render("campgrounds/index.ejs", {campgrounds: allCampgrounds});
         }
     });
     
@@ -85,29 +85,29 @@ app.get("/campgrounds/:id/comments/new", function(req, res){
 });
 
 app.post("/campgrounds/:id/comments", function(req, res){
-   //lookup campground using ID
-   Campground.findById(req.params.id, function(err, campground){
-       if(err){
-           console.log(err);
-           res.redirect("/campgrounds");
-       } else {
+  //lookup campground using ID
+  Campground.findById(req.params.id, function(err, campground){
+      if(err){
+          console.log(err);
+          res.redirect("/campgrounds");
+      } else {
         Comment.create(req.body.comment, function(err, comment){
-           if(err){
-               console.log(err);
-           } else {
-               console.log(req.body.comment);
-               campground.comments.push(comment);
-               campground.save();
-               res.redirect('/campgrounds/' + campground._id);
-           }
+          if(err){
+              console.log(err);
+          } else {
+              campground.comments.push(comment);
+              campground.save();
+              res.redirect('/campgrounds/' + campground._id);
+          }
         });
-       }
-   });
-   //create new comment
-   //connect new comment to campground
-   //redirect campground show page
+      }
+  });
+  //create new comment
+  //connect new comment to campground
+  //redirect campground show page
 });
 
+
 app.listen(process.env.PORT, process.env.IP, function(){
-    console.log("The YelpCamp Server Has Started!");
+    console.log("The FoodStreet Server Has Started!");
 });

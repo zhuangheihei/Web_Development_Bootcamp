@@ -1,0 +1,51 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <!--左半边的side bar-->
+        <div class="col-md-3">
+            <p class="lead">YelpCamp</p>
+            <div class="list-group">
+                <li class="list-group-item active">Info 1</li>
+                <li class="list-group-item">Info 2</li>
+                <li class="list-group-item">Info 3</li>
+            </div>
+        </div>
+        <!--右半边的主要内容-->
+        <div class="col-md-9">
+             <!--放一个框-->
+            <div class="thumbnail">
+                <!--图片-->
+                <img class="img-responsive" src="<%= campground.image %>">
+                <div class="caption-full">
+                    <!--价格放在右边-->
+                    <h4 class="pull-right">$9.00/night</h4>
+                    <!--名字-->
+                    <h4><a><%=campground.name%></a></h4>
+                    <!--描述-->
+                    <p><%= campground.description %></p>
+                </div>
+            </div>
+            <div class="well">
+                <!--放一个button在右边-->
+                <div class="text-right">
+                    <a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add New Comment</a>
+                </div>
+                <hr>
+                <!--每个comment生成一个row来显示-->
+                <% campground.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author %></strong>
+                            <span class="pull-right">10 days ago</span>
+                            <p>
+                                <%= comment.text %> 
+                            </p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
